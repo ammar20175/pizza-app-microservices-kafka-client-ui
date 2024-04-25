@@ -6,7 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../select";
-import { Phone, ShoppingBasket } from "lucide-react";
+import CartCounter from "./cart-counter";
+import { Phone } from "lucide-react";
 import { Button } from "../button";
 import { Tenant } from "@/lib/types";
 
@@ -23,7 +24,7 @@ const Header = async () => {
   if (!tenantsResponse.ok) {
     throw new Error("Failed to fetch tenant");
   }
-  
+
   const restaurants: { data: Tenant[] } = await tenantsResponse.json();
 
   return (
@@ -78,14 +79,9 @@ const Header = async () => {
             </li>
           </ul>
 
-          <div className="relative">
-            <ShoppingBasket className="hover:text-primary" />
-            <span className="absolute -top-3 -right-5 h-5 w-5 flex items-center justify-center rounded-full bg-primary font-bold text-white">
-              3
-            </span>
-          </div>
+          <CartCounter />
 
-          <div className="flex items-center ml-12 mr-2">
+          <div className="flex items-center ml-5 mr-2">
             <Phone />
             <span>+971 123 123 123</span>
           </div>
