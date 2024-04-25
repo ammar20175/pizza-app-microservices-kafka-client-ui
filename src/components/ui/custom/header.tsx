@@ -10,6 +10,11 @@ import CartCounter from "./cart-counter";
 import { Phone } from "lucide-react";
 import { Button } from "../button";
 import { Tenant } from "@/lib/types";
+import dynamic from "next/dynamic";
+
+const CartCounterWithoutSSR = dynamic(() => import("./cart-counter"), {
+  ssr: false,
+});
 
 const Header = async () => {
   const tenantsResponse = await fetch(
@@ -79,7 +84,7 @@ const Header = async () => {
             </li>
           </ul>
 
-          <CartCounter />
+          <CartCounterWithoutSSR />
 
           <div className="flex items-center ml-5 mr-2">
             <Phone />
