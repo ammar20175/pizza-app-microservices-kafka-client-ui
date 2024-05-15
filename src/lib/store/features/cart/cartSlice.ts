@@ -1,15 +1,18 @@
 import { Product, Topping } from "@/lib/types";
+import { hashTheItem } from "@/lib/utils";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface CartItem {
-  product: Product;
+export interface CartItem
+  extends Pick<Product, "_id" | "name" | "image" | "priceConfiguration"> {
   chosenConfiguration: {
     priceConfiguration: {
       [key: string]: string;
     };
     selectedToppings: Topping[];
   };
+  qty: number;
+  hash?: string;
 }
 export interface CartState {
   cartItems: CartItem[];
@@ -24,9 +27,12 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
+      const hash = hashTheItem(action.payload);
       const newItem = {
-        product: action.payload.product,
-        chosenConfiguration: action.payload.chosenConfiguration,
+        ...action.payload,
+        hash: hash,
+        // product: action.payload.product,
+        // chosenConfiguration: action.payload.chosenConfiguration,
       };
 
       window.localStorage.setItem(
@@ -43,6 +49,7 @@ export const cartSlice = createSlice({
   },
 });
 
+// Action creators are generated for each case reducer function
 export const { addToCart, setInitialCartItems } = cartSlice.actions;
 
 export default cartSlice.reducer;
