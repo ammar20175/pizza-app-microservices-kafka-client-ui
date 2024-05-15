@@ -42,6 +42,22 @@ const ProductModal = ({ product }: { product: Product }) => {
   };
   const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
 
+  const totalPrice = React.useMemo(() => {
+    const toppingsTotal = selectedToppings.reduce(
+      (acc, curr) => acc + curr.price,
+      0
+    );
+
+    const configPricing = Object.entries(chosenConfig).reduce(
+      (acc, [key, value]: [string, string]) => {
+        const price = product.priceConfiguration[key].availableOptions[value];
+        return acc + price;
+      },
+      0
+    );
+    return configPricing + toppingsTotal;
+  }, [chosenConfig, selectedToppings, product]);
+
   const handleCheckBoxCheck = (topping: Topping) => {
     const isAlreadyExists = selectedToppings.some(
       (element: Topping) => element.id === topping.id
@@ -122,15 +138,17 @@ const ProductModal = ({ product }: { product: Product }) => {
               }
             )}
 
-            <Suspense fallback={"Loading ..."}>
-              <ToppingList
-                selectedToppings={selectedToppings}
-                handleCheckBoxCheck={handleCheckBoxCheck}
-              />
-            </Suspense>
+            {product.category.name === "Pizza" && (
+              <Suspense fallback={"Loading ..."}>
+                <ToppingList
+                  selectedToppings={selectedToppings}
+                  handleCheckBoxCheck={handleCheckBoxCheck}
+                />
+              </Suspense>
+            )}
 
             <div className="flex items-center justify-between mt-12">
-              <span className="font-bold">Rs 400</span>
+              <span className="font-bold">Rs {totalPrice}</span>
               <Button onClick={() => handleAddToCart(product)}>
                 <ShoppingCart size={20} />
                 <span className="ml-2">Add to cart</span>
