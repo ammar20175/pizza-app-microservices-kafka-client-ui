@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import ProductList from "./components/product-list";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { restaurantId: string };
+}) {
   return (
     <>
       <section className="bg-white">
@@ -36,7 +40,7 @@ export default async function Home() {
       </section>
 
       <Suspense fallback={"loading......"}>
-        <ProductList />
+        <ProductList searchParams={searchParams} />
       </Suspense>
     </>
   );

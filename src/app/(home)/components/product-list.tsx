@@ -2,7 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Category, Product } from "@/lib/types";
 import ProductCard from "./product-card";
 
-const ProductList = async () => {
+const ProductList = async ({
+  searchParams,
+}: {
+  searchParams: { restaurantId: string };
+}) => {
   const categoryResponse = await fetch(
     `${process.env.BACKEND_URL}/api/catalog/categories`,
     {
@@ -21,7 +25,7 @@ const ProductList = async () => {
   // todo: add pagination
   const productsResponse = await fetch(
     // todo: add dynamic tenantId
-    `${process.env.BACKEND_URL}/api/catalog/products?perPage=100&tenantId=1`,
+    `${process.env.BACKEND_URL}/api/catalog/products?perPage=100&tenantId=${searchParams.restaurantId}`,
     {
       next: {
         revalidate: 3600, // 1 hour

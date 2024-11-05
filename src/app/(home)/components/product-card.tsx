@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Product } from "@/lib/types";
 import ProductModal from "./product-modal";
+import { getMinPrice } from "@/lib/utils";
 
 type PropTypes = { product: Product };
 
@@ -29,7 +30,7 @@ const ProductCard = ({ product }: PropTypes) => {
         <CardFooter className="flex items-center justify-between mt-2">
           <p>
             <span>From </span>
-            <span className="font-bold">Rs {100}</span>
+            <span className="font-bold">Rs {getMinPrice(product)}</span>
           </p>{" "}
           <ProductModal product={product} />
         </CardFooter>
