@@ -4,7 +4,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
+} from "../../../components/ui/card";
 import { Product } from "@/lib/types";
 import ProductModal from "./product-modal";
 import { getMinPrice } from "@/lib/utils";

@@ -7,9 +7,11 @@ import {
 } from "@/lib/store/features/cart/cartSlice";
 import { X } from "lucide-react";
 import { useAppDispatch } from "@/lib/store/hooks";
+import { useTotal } from "@/lib/hooks/useTotal";
 
 const CartItem = ({ item }: { item: Item }) => {
   const dispatch = useAppDispatch();
+  const total = useTotal(item);
 
   return (
     <>
@@ -43,7 +45,7 @@ const CartItem = ({ item }: { item: Item }) => {
             </QtyChanger>
           </div>
           <div className="flex">
-            <div className="font-bold w-12">Rs300</div>
+            <div className="font-bold w-12">Rs{total * item.qty}</div>
             <button
               className="ml-4"
               onClick={() => {

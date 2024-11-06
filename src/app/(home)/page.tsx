@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { Suspense } from "react";
 import ProductList from "./components/product-list";
 

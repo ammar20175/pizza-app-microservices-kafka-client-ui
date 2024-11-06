@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
+} from "../../components/ui/select";
 import { Tenant } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 

@@ -1,18 +1,22 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "../../../components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../../components/ui/dialog";
 
 import { CircleCheck, ShoppingCart } from "lucide-react";
 import React, { startTransition, Suspense, useState } from "react";
 import ToppingList from "./topping-list";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "../../../components/ui/radio-group";
 import { Product, Topping } from "@/lib/types";
-import { Label } from "@/components/ui/label";
+import { Label } from "../../../components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { addToCart, CartItem } from "@/lib/store/features/cart/cartSlice";
 import { hashTheItem } from "@/lib/utils";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../../../components/ui/use-toast";
 
 type ChosenConfig = {
   [key: string]: string;
