@@ -1,3 +1,4 @@
+import { getSession } from "@/lib/session";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -20,8 +21,24 @@ import { Label } from "../../components/ui/label";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { Textarea } from "../../components/ui/textarea";
 import { Coins, CreditCard, Plus } from "lucide-react";
+import { redirect } from "next/navigation";
 
-export default function Checkout() {
+export default async function Checkout({
+  searchParams,
+}: {
+  searchParams: { restaurantId: string };
+}) {
+  const session = await getSession();
+
+  const sParams = new URLSearchParams(searchParams);
+  const existingQueryString = sParams.toString();
+
+  sParams.append("return-to", `/checkout?${existingQueryString}`);
+  
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <div className="flex container gap-6 mt-16">
       <Card className="w-3/5 border-none">
